@@ -1,9 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 # this is the udp broadcast client
 import socket, traceback
 from time import sleep
 from pprint import pprint
-from scan import scan_interface
+from scan import scan_interface,echo
 
 host = '' # Bind to all interfaces
 this_port = 5441 # Can be any
@@ -16,22 +16,21 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 s.bind((host, this_port))
-print "all interfaces:"
-pprint(ints)
 while True:
     try:
         for (ifname,ip,broadcast) in ints:
-            print "sending to:",broadcast,server_port
-            s.sendto("hello?",(broadcast, server_port))   
+            echo ("sending to:",broadcast,server_port)
+            s.sendto(bytes("hello?"),(broadcast, server_port)) 
+        echo("Waiting for reply")  
         message, address = s.recvfrom(buffer_size)
-        print "Got reply from server:\n\t", address,":",message 
+        echo("Got reply from server:\n\t", address,":",message )
         break
     except (KeyboardInterrupt, SystemExit):
-        print "exiting .."
+        echo ("exiting ..")
         break
     except:
         traceback.print_exc()
-        print "exception happened"
+        echo ("exception happened")
     sleep(0.5)
     
 s.close()
