@@ -8,7 +8,7 @@ buffer_size = 4096
 
 echo( "Server starting" )
 ints = scan_interface()
-reply = ' '.join([i[1] for i in ints])
+reply = bytes(' '.join([i[1] for i in ints]))
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
