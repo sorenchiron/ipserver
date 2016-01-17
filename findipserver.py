@@ -20,7 +20,7 @@ while True:
     try:
         for (ifname,ip,broadcast) in ints:
             echo ("sending to:",broadcast,server_port)
-            s.sendto(bytes("hello?"),(broadcast, server_port)) 
+            s.sendto(bytes("hello?",encoding="ascii"),(broadcast, server_port)) 
         echo("Waiting for reply")  
         message, address = s.recvfrom(buffer_size)
         echo("Got reply from server:\n\t", address,":",message )
