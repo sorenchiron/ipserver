@@ -9,7 +9,7 @@ host = '' # Bind to all interfaces
 this_port = 5441 # Can be any
 server_port = 2345
 buffer_size = 4096
-
+reply = bytes(1)
 ints = scan_interface()
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -20,10 +20,10 @@ while True:
     try:
         for (ifname,ip,broadcast) in ints:
             echo ("sending to:",broadcast,server_port)
-            s.sendto(bytes("hello?",encoding="ascii"),(broadcast, server_port)) 
+            s.sendto(reply,(broadcast, server_port)) 
         echo("Waiting for reply")  
         message, address = s.recvfrom(buffer_size)
-        echo("Got reply from server:\n\t", address,":",message )
+        echo("Found server:\n\t", address,":",message )
         break
     except (KeyboardInterrupt, SystemExit):
         echo ("exiting ..")
