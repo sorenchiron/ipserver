@@ -32,7 +32,8 @@ while True:
         traceback.print_exc()
         echo ("exception happened")
     sleep(0.5)
-    
+
 s.close()
+echo("finished!")
 
 
