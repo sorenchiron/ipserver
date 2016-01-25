@@ -7,7 +7,7 @@ this_port = 2345
 buffer_size = 4096
 
 echo( "Server starting" )
-ints = scan_interface()
+#ints = scan_interface()
 reply = bytes(1)
 
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
